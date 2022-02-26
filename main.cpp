@@ -14,6 +14,7 @@ float escala = 1;
 int rotate = 0;
 float camx = 20;
 float camz = 20;
+int mode = 0;
 
 void changeSize(int w, int h) {
 
@@ -72,6 +73,13 @@ void renderScene(void) {
 
 
 // put drawing instructions here
+	if (!mode) 
+		glPolygonMode(GL_FRONT, GL_FILL);
+	else if (mode == 1)
+		glPolygonMode(GL_FRONT, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT, GL_POINT);
+
 	glBegin(GL_TRIANGLES);
 	//lados
 	glColor3f(0.0f,0.3f,1.0f);
@@ -127,6 +135,10 @@ void interp_teclado(unsigned char key, int x, int y) {
 	}
 	else if (key == '-') {
 		escala -= 0.1f;
+	}
+	else if (key == 'f') {
+		mode += 1;
+		mode %= 3;
 	}
 	else if (key == 32) { // space bar
 		rotate += 10;

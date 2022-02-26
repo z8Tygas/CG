@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #endif
 
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 //VARS GLOB
@@ -11,6 +12,8 @@ float transx = 0;
 float transz = 0;
 float escala = 1;
 int rotate = 0;
+float camx = 20;
+float camz = 20;
 
 void changeSize(int w, int h) {
 
@@ -45,7 +48,7 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(20.0,20.0,20.0, 
+	gluLookAt(camx,20.0,camz, 
 		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
 	
@@ -132,7 +135,13 @@ void interp_teclado(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
+void interp_rato_motion(int x, int y) {
+	camx = 20*sin(  ((float) x / GLUT_INIT_WINDOW_WIDTH) * 2 * M_PI  );
+	camz = 20*sin(  ((float) y / GLUT_INIT_WINDOW_WIDTH) * 2 * M_PI  );
 
+
+	glutPostRedisplay();
+}
 
 
 
@@ -152,6 +161,8 @@ int main(int argc, char **argv) {
 	
 // put here the registration of the keyboard callbacks
 	glutKeyboardFunc(interp_teclado);
+	glutMotionFunc(interp_rato_motion);
+
 
 
 

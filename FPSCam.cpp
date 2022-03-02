@@ -16,9 +16,9 @@
 //object draw mode
 	int mode = 0;
 //cam motion
-	float cam_x = 0;
-	float cam_y = -20;
-	float cam_z = 0;
+	float cam_x = 10;
+	float cam_y = 10;
+	float cam_z = 10;
 	float dx = -1;
 	float dy = 0;
 	float dz = 0;
@@ -178,17 +178,28 @@ void renderScene(void) {
 // write function to process keyboard events
 
 void interp_teclado(unsigned char key, int x, int y) {
+	int k = 10;
 	if (key == 'a') {
-		trans_x -= 0.5f;
+		cam_x += sin(alpha + M_PI_2) / k;
+		cam_z += cos(alpha + M_PI_2) / k;
 	}
 	else if (key == 'd') {
-		trans_x += 0.5f;
+		cam_x += sin(alpha - M_PI_2) / k;
+		cam_z += cos(alpha - M_PI_2) / k;
 	}
 	else if (key == 'w') {
-		trans_z -= 0.5f;
+		cam_x += sin(alpha) / k;
+		cam_z += cos(alpha) / k;
 	}
 	else if (key == 's') {
-		trans_z += 0.5f;
+		cam_x -= sin(alpha) / k;
+		cam_z -= cos(alpha) / k;
+	}
+	else if (key == '1') { // Replace by LSHIFT
+		cam_y -= 0.1;
+	}
+	else if (key == ' ') { // space bar
+		cam_y += 0.1;
 	}
 	else if (key == '+') {
 		escala += 0.1f;
@@ -200,9 +211,25 @@ void interp_teclado(unsigned char key, int x, int y) {
 		mode += 1;
 		mode %= 3;
 	}
-	else if (key == 32) { // space bar
+	else if (key == 'r') {
 		rotate += 10;
 		rotate %= 360;
+	}
+	glutPostRedisplay();
+}
+
+void interp_spec_teclado(int key, int x, int y) {
+	if (key == GLUT_KEY_LEFT) {
+		trans_x -= 0.5f;
+	}
+	else if (key == GLUT_KEY_RIGHT) {
+		trans_x += 0.5f;
+	}
+	else if (key == GLUT_KEY_UP) {
+		trans_z -= 0.5f;
+	}
+	else if (key == GLUT_KEY_DOWN) {
+		trans_z += 0.5f;
 	}
 	glutPostRedisplay();
 }
@@ -293,6 +320,7 @@ int main(int argc, char **argv) {
 	
 // put here the registration of the keyboard callbacks
 	glutKeyboardFunc(interp_teclado);
+	glutSpecialFunc(interp_spec_teclado);
 	glutMotionFunc(interp_rato_motion);
 	glutMouseFunc(interp_rato_click);
 

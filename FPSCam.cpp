@@ -236,16 +236,9 @@ void interp_spec_teclado(int key, int x, int y) {
 
 void interp_rato_click(int button, int state, int x, int y) {
 	//LMB Controls
-	if (button == 0 && state == GLUT_DOWN) {
-		enable_trans = 1;
-		oldx = x;
-		oldy = y;
-	}
-	else if (button == 0 && state == GLUT_UP) {
-		enable_trans = 0;
-	}
+	
 	//RMB Controls
-	else if (button == 2 && state == GLUT_DOWN) {
+	if (button == 2 && state == GLUT_DOWN) {
 		enable_rotate = 1;
 		oldx = x;
 		oldy = y;
@@ -284,19 +277,6 @@ void interp_rato_motion(int x, int y) {
 		dx = cos(beta) * sin(alpha);
 		dy = sin(beta);
 		dz = cos(beta) * cos(alpha);
-
-		glutPostRedisplay();
-	}
-	else if (enable_trans) {
-		float varx = oldx - x;
-		float vary = oldy - y;
-		oldx = x;
-		oldy = y;
-
-		varx /= 100;
-		vary /= 100;
-
-		// Stff Here
 
 		glutPostRedisplay();
 	}

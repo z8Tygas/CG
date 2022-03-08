@@ -36,22 +36,9 @@ void renderScene(void) {
 	// set the camera
 	glLoadIdentity();
 	gluLookAt(camx, camy, camz,
-		      0.0,0.0,0.0,
-			  0.0f,1.0f,0.0f);
+	      	  0.0,0.0,0.0,
+		  0.0f,1.0f,0.0f);
 	
-	//axis
-	glBegin(GL_LINES);
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 100.0f);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 100.0f, 0.0f);
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(100.0f, 0.0f, 0.0f);
-	glEnd();
-
 // write function to process keyboard events
 
 void interp_teclado(unsigned char key, int x, int y) {
@@ -119,35 +106,10 @@ void interp_rato_motion(int x, int y) {
 	}
 }
 
-
-
 int main(int argc, char **argv) {
-
-// init GLUT and the window
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
-	glutInitWindowPosition(100,100);
-	glutInitWindowSize(800,800);
-	glutCreateWindow("CG@DI-UM");
-		
-// Required callback registry 
-	glutDisplayFunc(renderScene);
-	glutReshapeFunc(changeSize);
-
 	
 // put here the registration of the keyboard callbacks
 	glutKeyboardFunc(interp_teclado);
 	glutMotionFunc(interp_rato_motion);
 	glutMouseFunc(interp_rato_click);
-
-
-//  OpenGL settings
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glClearColor(0.3f, 0.5f, 0.8f, 1);
-	
-// enter GLUT's main cycle
-	glutMainLoop();
-	
-	return 1;
 }

@@ -11,6 +11,8 @@
 	float camx = 20;
 	float camy = 0;
 	float camz = 0;
+	float cam_center_x = 0;
+	float cam_center_z = 0;
 	float alpha = M_PI_2;
 	float beta = 0;
 //mouse vars
@@ -89,14 +91,27 @@ void interp_rato_motion(int x, int y) {
 			beta += vary;
 		}
 
-		camx = 20 * cos(beta) * sin(alpha);
-		camz = 20 * cos(beta) * cos(alpha);
-		camy = 20 * sin(beta);
+		cam_x = 20 * cos(beta) * sin(alpha);
+		cam_z = 20 * cos(beta) * cos(alpha);
+		cam_y = 20 * sin(beta);
 
 		glutPostRedisplay();
 	}
 	else if (enable_trans) {
+		float varx = oldx - x;
+		float varz = oldy - y;
+		oldx = x;
+		oldy = y;
 
+		varx /= cam_sense;
+		varz /= cam_sense;
+
+		cam_x += varx;
+		cam_z += varz;
+		cam_center_x += varx;
+		cam_center_z += varz;
+
+		glutPostRedisplay();
 	}
 }
 

@@ -12,6 +12,7 @@
 	float camy = 0;
 	float camz = 0;
 	float cam_center_x = 0;
+	float cam_center_y = 0;
 	float cam_center_z = 0;
 	float alpha = M_PI_2;
 	float beta = 0;
@@ -32,7 +33,7 @@ void renderScene(void) {
 	// set the camera
 	glLoadIdentity();
 	gluLookAt(camx, camy, camz,
-	      	  0.0,0.0,0.0,
+	      	  cam_center_x, cam_center_y, cam_center_z,
 		  0.0f,1.0f,0.0f);
 	
 // write function to process keyboard events

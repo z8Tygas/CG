@@ -13,8 +13,6 @@
 	float transz = 0;
 	float escala = 1;
 	int rotate = 0;
-//object draw mode
-	int mode = 0;
 //cam motion
 	float camx = 20;
 	float camy = 0;
@@ -29,32 +27,6 @@
 	int enable_trans = 0;
 	int invert_cam = 1;
 	int cam_sense = 250; //higher -> less sens
-
-void changeSize(int w, int h) {
-
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window with zero width).
-	if(h == 0)
-		h = 1;
-
-	// compute window's aspect ratio 
-	float ratio = w * 1.0 / h;
-
-	// Set the projection matrix as current
-	glMatrixMode(GL_PROJECTION);
-	// Load Identity Matrix
-	glLoadIdentity();
-	
-	// Set the viewport to be the entire window
-    glViewport(0, 0, w, h);
-
-	// Set perspective
-	gluPerspective(45.0f ,ratio, 1.0f ,1000.0f);
-
-	// return to the model view matrix mode
-	glMatrixMode(GL_MODELVIEW);
-}
-
 
 void renderScene(void) {
 
@@ -79,55 +51,6 @@ void renderScene(void) {
 	glVertex3f(0.0f, 0.0f, 0.0f);
 	glVertex3f(100.0f, 0.0f, 0.0f);
 	glEnd();
-// put the geometric transformations here
-
-	glTranslatef(transx, 0.0f, transz);
-	glRotatef(rotate, 0.0f, 1.0f, 0.0f);
-	glScalef(1.0f, escala, 1.0f);
-
-
-// put drawing instructions here
-	if (!mode) 
-		glPolygonMode(GL_FRONT, GL_FILL);
-	else if (mode == 1)
-		glPolygonMode(GL_FRONT, GL_LINE);
-	else
-		glPolygonMode(GL_FRONT, GL_POINT);
-
-	glBegin(GL_TRIANGLES);
-	//lados
-	glColor3f(0.0f,0.3f,1.0f);
-	glVertex3f(2.0f, 0.0f, 2.0f);
-	glVertex3f(0.0f, 5.0f, 0.0f);
-	glVertex3f(-2.0f, 0.0f, 2.0f);
-	glColor3f(0.0f, 1.0f, 0.3f);
-	glVertex3f(2.0f, 0.0f, -2.0f);
-	glVertex3f(0.0f, 5.0f, 0.0f);
-	glVertex3f(2.0f, 0.0f, 2.0f);;
-	glColor3f(1.0f, 0.0f, 0.3f);
-	glVertex3f(-2.0f, 0.0f, -2.0f);
-	glVertex3f(0.0f, 5.0f, 0.0f);
-	glVertex3f(2.0f, 0.0f, -2.0f);
-	glColor3f(0.8f, 1.0f, 0.3f);
-	glVertex3f(-2.0f, 0.0f, 2.0f);
-	glVertex3f(0.0f, 5.0f, 0.0f);
-	glVertex3f(-2.0f, 0.0f, -2.0f);
-	//base
-	glColor3f(0.4f, 0.4f, 0.4f);
-	glVertex3f(-2.0f, 0.0f, 2.0f);
-	glVertex3f(-2.0f, 0.0f, -2.0f);
-	glVertex3f(2.0f, 0.0f, 2.0f);
-	glVertex3f(-2.0f, 0.0f, -2.0f);
-	glVertex3f(2.0f, 0.0f, -2.0f);
-	glVertex3f(2.0f, 0.0f, 2.0f);
-	glEnd();
-
-
-	// End of frame
-	glutSwapBuffers();
-}
-
-
 
 // write function to process keyboard events
 
@@ -143,20 +66,6 @@ void interp_teclado(unsigned char key, int x, int y) {
 	}
 	else if (key == 's') {
 		transz += 0.5f;
-	}
-	else if (key == '+') {
-		escala += 0.1f;
-	}
-	else if (key == '-') {
-		escala -= 0.1f;
-	}
-	else if (key == 'f') {
-		mode += 1;
-		mode %= 3;
-	}
-	else if (key == 32) { // space bar
-		rotate += 10;
-		rotate %= 360;
 	}
 	glutPostRedisplay();
 }

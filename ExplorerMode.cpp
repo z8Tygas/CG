@@ -51,6 +51,14 @@ void interp_teclado(unsigned char key, int x, int y) {
 	else if (key == 's') {
 		transz += 0.5f;
 	}
+	else if (key == '1') { // Replace by LSHIFT
+		cam_y -= 0.1;
+		cam_center_y -= 0.1;
+	}
+	else if (key == ' ') { // space bar
+		cam_y += 0.1;
+		cam_center_y += 0.1;
+	}
 	glutPostRedisplay();
 }
 

@@ -1,12 +1,3 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 //VARS GLOB
 //cam motion
 	float cam_x = 10;
@@ -26,10 +17,6 @@
 	int cam_sense = 250; //higher -> less sens
 
 void renderScene(void) {
-
-	// clear buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	// set the camera
 	glLoadIdentity();
 	gluLookAt(cam_x, cam_y, cam_z,

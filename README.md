@@ -1,4 +1,4 @@
-# CG Graphic Computation
+# Graphic Computation
 
 Files developed for GC TP
 
